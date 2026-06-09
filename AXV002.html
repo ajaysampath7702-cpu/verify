@@ -1,9 +1,45 @@
-<h2>Axviro Technologies</h2>
-<h3>Certificate Verified ✓</h3>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Certificate Verification</title>
+</head>
+<body style="font-family:Arial;text-align:center;margin-top:50px;">
 
-<p>ID: AXV002</p>
-<p>Name: Y Jagadeesh</p>
-<p>Domain: Java Internship</p>
-<p>Batch: April 02 - June 30</p>
-<p>Credits: 4</p>
-<p>Status: Completed</p>
+<h2>Axviro Technologies</h2>
+
+<input id="cid" placeholder="Enter Certificate ID">
+<button onclick="check()">Verify</button>
+
+<p id="result"></p>
+
+<script>
+const data = {
+  "AXV001": {
+    name: "Y Jagadeesh",
+    domain: "Java Internship",
+    batch: "Apr 02 - Jun 30",
+    credits: 4,
+    status: "Completed"
+  }
+};
+
+function check(){
+  let id = document.getElementById("cid").value;
+
+  if(data[id]){
+    document.getElementById("result").innerHTML =
+    "✅ VERIFIED<br><br>" +
+    "Name: " + data[id].name + "<br>" +
+    "Domain: " + data[id].domain + "<br>" +
+    "Batch: " + data[id].batch + "<br>" +
+    "Credits: " + data[id].credits + "<br>" +
+    "Status: " + data[id].status;
+  } else {
+    document.getElementById("result").innerHTML =
+    "❌ Invalid Certificate ID";
+  }
+}
+</script>
+
+</body>
+</html>
