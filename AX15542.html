@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Axviro Certificate Verification</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    text-align: center;
+  }
+
+  .container {
+    padding: 50px 20px;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0d47a1, #1976d2);
+    color: white;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 650px;
+    margin: auto;
+    margin-bottom: 25px;
+  }
+
+  .header h1 {
+    margin: 0;
+    font-size: 28px;
+  }
+
+  .header p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    opacity: 0.9;
+  }
+
+  /* BOX */
+  .box {
+    background: white;
+    padding: 30px;
+    max-width: 550px;
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  input {
+    width: 80%;
+    padding: 12px;
+    margin-top: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 12px 25px;
+    background: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #0d47a1;
+  }
+
+  /* RESULT CARD */
+  .result-card {
+    text-align: left;
+    background: #ffffff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0d47a1;
+    margin-bottom: 10px;
+  }
+
+  .row {
+    margin: 6px 0;
+    font-size: 14px;
+  }
+
+  .label {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .status {
+    margin-top: 10px;
+    font-weight: bold;
+    color: green;
+  }
+
+  .notice {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #555;
+    background: #f1f3f5;
+    padding: 10px;
+    border-radius: 6px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Axviro Technologies</h1>
+    <p>Certificate Verification Portal</p>
+  </div>
+
+  <!-- INPUT BOX -->
+  <div class="box">
+
+    <h3>Verify Certificate</h3>
+
+    <!-- FIXED INPUT -->
+    <input id="certId"
+           placeholder="Enter Certificate ID "
+           autocomplete="off">
+
+    <br>
+
+    <button onclick="verify()">Verify Certificate</button>
+
+    <div id="result"></div>
+
+  </div>
+
+</div>
+
+<script>
+
+/* ================= DATABASE ================= */
+const database = {
+  "AX15542": {
+    name: "CHAKALI VENU KUMAR",
+    internId: "AX15542",
+    domain: "Python Full Stack Internship",
+    credits: 4,
+    batch: "April 20 2026 to June 20 2026",
+    status: "Completed",
+    notice: "Intern completed successfully"
+  }
+};
+
+/* ================= VERIFY FUNCTION ================= */
+function verify() {
+
+  const input = document.getElementById("certId");
+  const id = input.value.trim();
+  const result = document.getElementById("result");
+
+  // Clear old result first
+  result.innerHTML = "";
+
+  if (database[id]) {
+
+    const data = database[id];
+
+    result.innerHTML = `
+      <div class="result-card">
+
+        <div class="title">Intern Details</div>
+
+        <div class="row"><span class="label">Name:</span> ${data.name}</div>
+        <div class="row"><span class="label">Intern ID:</span> ${data.internId}</div>
+        <div class="row"><span class="label">Domain:</span> ${data.domain}</div>
+        <div class="row"><span class="label">No of Credits:</span> ${data.credits}</div>
+        <div class="row"><span class="label">Batch:</span> ${data.batch}</div>
+
+        <div class="status">Status: ${data.status}</div>
+
+        <div class="notice">
+          <span class="label">Notice:</span> ${data.notice}
+        </div>
+
+      </div>
+    `;
+
+  } else {
+    result.innerHTML = "<p style='color:red;font-weight:bold'>❌ Invalid Certificate ID</p>";
+  }
+
+  // ALWAYS CLEAR INPUT AFTER SEARCH
+  input.value = "";
+}
+
+/* INPUT ALWAYS EMPTY ON LOAD */
+window.onload = function () {
+  document.getElementById("certId").value = "";
+};
+
+</script>
+
+</body>
+</html>
